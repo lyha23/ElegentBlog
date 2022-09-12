@@ -1,0 +1,10 @@
+{
+
+  "[vue]": {
+    "editor.codeActionsOnSave": {
+      "source.fixAll.eslint": false,
+      "source.fixAll.stylelint": false
+    },
+    "editor.defaultFormatter": "Vue.volar"
+  },
+}
