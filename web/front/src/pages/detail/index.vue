@@ -16,7 +16,6 @@ onBeforeMount(async () => {
   state.article = res.data
 })
 
-
 </script>
 
 <template>

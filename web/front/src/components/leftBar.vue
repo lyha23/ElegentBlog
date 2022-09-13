@@ -16,7 +16,7 @@ defineProps({
 
 
 const list = ref([])
-onMounted(async () => {
+onBeforeMount(async () => {
   let res = await get({
     url: '/category',
   })
@@ -31,16 +31,16 @@ let type = ['success', 'info', 'warning', 'danger']
 
 <template>
   <router-link to="/" class="rounded-1/2 h-40 shadow-lg mt-10 w-40">
-    <img class="rounded-1/2 h-40 shadow-lg w-40 avatar" :src="userStore.avatar" />
+    <img class="rounded-1/2 h-40 shadow-lg w-40 avatar" :src="userStore?.avatar" />
   </router-link>
   <div class="flex mt-12 w-full justify-evenly">
     <div class="flex flex-col items-center">
       <div class="font-medium text-base">文章</div>
-      <div class="text-gray-500">{{articleStore.pagination.total}}</div>
+      <div class="text-gray-500">{{articleStore?.pagination.total}}</div>
     </div>
     <div class="flex flex-col items-center">
       <div class="font-medium text-base">标签</div>
-      <div class="text-gray-500">{{list.length}}</div>
+      <div class="text-gray-500">{{list?.length}}</div>
     </div>
   </div>
   <router-link :to="`/`"

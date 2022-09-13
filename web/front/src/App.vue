@@ -36,7 +36,7 @@ router.beforeEach(async (to, from) => {
   console.log("from:", from, `to: `, to)
 })
 
-onMounted(async () => {
+onBeforeMount(async () => {
   let res = await getProfileInfo()
   console.log(res)
   userStore.setInfo(res.data)
