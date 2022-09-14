@@ -122,7 +122,7 @@ onBeforeMount(async () => {
   
 <style lang="scss" scoped>
 .nav {
-  @apply rounded-xl bg-[#f5f6f5];
+  @apply rounded-xl bg-[#f5f6f5] dark: bg-gray-600 ;
 
   .navItem {
     @apply flex font-medium h-9 opacity-90 text-[#999] w-9 items-center justify-center;

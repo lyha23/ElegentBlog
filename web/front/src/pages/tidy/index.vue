@@ -32,9 +32,7 @@ onBeforeMount(async () => {
 </script>
 
 <template>
-
-  <Timeline :timelineDesc="timelineDesc" :width="800" />
-
+  <Timeline :timelineDesc="timelineDesc" class="w-full" />
 </template>
 
 

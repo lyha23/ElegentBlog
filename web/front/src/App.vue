@@ -1,20 +1,25 @@
 <template>
-  <div class="bg h-full w-full -z-2 fixed"></div>
+  <div class="flex justify-between xl:hidden">
+    <button @click="display = true">
+      <i style="font-size:24px" class=" p-5 iconfont icon-caidan" />
+    </button>
+    <button class="center" @click="toggleTheme()">
+      <i style="font-size:28px" class=" p-5 iconfont "
+        :class="theme === 'light' ?  'icon-taiyang':'icon-yueliang' "></i>
+    </button>
+  </div>
 
-  <button class="xl:hidden" @click="display = true">
-    <i style="font-size:24px" class=" p-5 iconfont icon-caidan" />
-  </button>
 
   <drawer title="菜单" v-model:display.sync="display" :inner="true">
     <theMenu />
   </drawer>
-  <div class="flex justify-center">
+  <div class="flex justify-center ">
     <div class="flex justify-center items-center xl:overflow-hidden xl:justify-start <xl:flex-col">
       <div v-if="notMobblePage"
         class="flex flex-col w-screen-xs p-4 z-3 items-center hideBar xl:h-200 xl:overflow-y-auto ">
         <leftBar />
       </div>
-      <div class="h-auto bg-light-50 shadow-md p-5  z-3 hideBar xl:h-200 xl:w-screen-lg xl:overflow-y-auto">
+      <div class="h-auto  shadow-md p-5  z-3 hideBar xl:h-200 xl:w-screen-lg xl:overflow-y-auto">
         <router-view />
       </div>
     </div>
@@ -27,8 +32,30 @@ import drawer from '@/components/sideDrawer.vue'
 import leftBar from '@/components/leftBar.vue'
 
 import router from './router';
-import { useCategoryStore, useUserStore } from '@/store'
+import { useCategoryStore, useUserStore, useAppStore } from '@/store'
 import theMenu from '@/components/theMenu.vue';
+
+///
+import { useDark, useToggle } from '@vueuse/core';
+
+const appStore = useAppStore();
+
+const isDark = useDark({
+  selector: 'body',
+  attribute: 'arco-theme',
+  valueDark: 'dark',
+  valueLight: 'light',
+  storageKey: 'arco-theme',
+  onChanged(dark: boolean) {
+    appStore.toggleTheme(dark);
+  },
+});
+const toggleTheme = useToggle(isDark);
+const theme = computed(() => {
+  return appStore.theme;
+});
+///
+
 
 const userStore = useUserStore()
 const categoryStore = useCategoryStore()
@@ -57,24 +84,11 @@ onBeforeMount(async () => {
 @import '@/assets/iconfont/iconfont.css';
 
 #app {
-  @apply font-medium;
+  @apply font-medium bg-light-50 dark: bg-dark-400 dark:text-gray-400 ;
   font-family: Roboto, Noto, Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   color: #2c3e50;
-  background-color: var(--color-bg-1);
-}
-
-.bg {
-  /* 兜底，IE和Firefox浏览器 */
-  filter: blur(500px); //重点：使用的是 filter 来实现的
-  --transparent: url(data:image/gif;base64,R0lGODlhAQABAIAAAP///wAAACH5BAEAAAAALAAAAAABAAEAAAICRAEAOw==);
-  /* Safari最近版本已经不需要私有前缀了 */
-  background: cross-fade(var(--transparent), url('@/assets/images/yokina.png'), 50%) no-repeat top center;
-  /* 如使用自定义属性，-webkit-语句需要放在没有私有前缀语句的下面 */
-  background: -webkit-cross-fade(var(--transparent), url('@/assets/images/yokina.png'), 50%) no-repeat top center;
-  background-size: 100% auto;
-  filter: Alpha(Opacity=50);
 }
 
 .hideBar::-webkit-scrollbar {

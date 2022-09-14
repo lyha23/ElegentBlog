@@ -1,7 +1,7 @@
 <template>
   <div class="drawer">
     <div :class="maskClass" @click="closeByMask"></div>
-    <div :class="mainClass" :style="mainStyle" class="main">
+    <div :class="mainClass" :style="mainStyle" class="bg-light-400 main dark:bg-dark-400">
       <div class="drawer-head">
         <span>{{ title }}</span>
         <span class="px-2 close-btn" @click="closeByButton">X</span>
@@ -119,7 +119,6 @@ export default {
     z-index: 10;
     top: 0;
     height: 100%;
-    background: #fff;
     transition: all 0.5s;
   }
 

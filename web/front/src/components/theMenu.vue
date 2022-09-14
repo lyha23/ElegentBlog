@@ -35,14 +35,14 @@ let type = ['success', 'info', 'warning', 'danger']
     </div>
   </router-link>
 
-  <input class="rounded-xl shadow-md mt-5 w-full p-4" placeholder="搜全站！" />
-  <div class="bg-white rounded-xl flex flex-wrap shadow-md my-1 mt-5 w-full p-3">
+  <input class="rounded-xl  shadow-md mt-5 w-full p-4 dark:bg-dark-800" placeholder="搜全站！" />
+  <div class=" rounded-xl flex flex-wrap shadow-md my-1 mt-5 w-full p-3">
     <router-link :to="`/page?category=${item.id}&page=1`" v-for="(item,index) in categoryStore.list">
       <el-tag :type="type[index%4]" class="my-1 mr-2" round>
         {{item.name}}</el-tag>
     </router-link>
   </div>
-  <div class="rounded-xl flex bg-light-50 shadow-md mt-5 w-full p-3 justify-evenly">
+  <div class="rounded-xl flex shadow-md mt-5 w-full p-3 justify-evenly">
     <a :href="userStore.bili">
       <el-tooltip effect="dark" content="bilibili" placement="top-start">
         <div
@@ -63,7 +63,8 @@ let type = ['success', 'info', 'warning', 'danger']
     </el-tooltip>
     <a :href="userStore.github">
       <el-tooltip effect="dark" content="github" placement="top-start">
-        <div class="flex bg-[rgb(25,23,23,.15)] rounded-1/2 h-9 text-[rgb(25,23,23)] w-9 justify-center items-center">
+        <div
+          class="flex bg-[rgb(25,23,23,.15)] rounded-1/2 h-9 text-[rgb(25,23,23)] w-9 justify-center items-center dark:bg-gray-600">
           <i style="font-size:22px" class="iconfont icon-github-fill" />
         </div>
       </el-tooltip>

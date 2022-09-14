@@ -40,7 +40,8 @@ defineProps({
   <router-link :to="`/detail?id=${item?.ID}`" class="h-max w-full btn">
     <div class="rounded-xl h-30 w-full ceshi relative article title-bg xl:h-screen-sm"
       :style="{background:`url(${item?.img}) no-repeat center center`}">
-      <div class="text-white text-xl p-3 bottom-0 left-0 absolute title">{{item?.title}}</div>
+      <div class="p-10 bottom-0 left-0 text-light-800 text-4xl absolute title <xl:text-xl <xl:p-3 dark:text-gray-200">
+        {{item?.title}}</div>
     </div>
   </router-link>
   <div class="flex mt-3">
