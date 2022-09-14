@@ -1,10 +1,15 @@
+import { get } from '@/utils/http/axios';
 import { defineStore } from 'pinia';
 
 
 export const useArticleStore = defineStore('article', {
   state: () => ({
     list:undefined,
-    pagination: undefined,
+    pagination: {
+      total:0,
+      page:1,
+      pageSize:10
+    },
   }),
   getters: {
     userProfile(state) {

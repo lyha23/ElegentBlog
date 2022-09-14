@@ -6,6 +6,10 @@ function dateformate(indate) {
   return day(indate).format(`YYYY-MM-DD HH:mm`)
 }
 
+function xsdateformate(indate) {
+  return day(indate).format(`MM月DD日`)
+}
+
 type articleType = {
   Category?: Object
   CreatedAt?: string,
@@ -22,23 +26,35 @@ type articleType = {
 }
 
 defineProps({
-  item: Object as PropType<articleType>,
+  item: {
+    type: Object as PropType<articleType>,
+    default: () => {
+      content: ""
+    }
+  }
 })
 </script>
 
 
 <template>
   <router-link :to="`/detail?id=${item?.ID}`" class="h-max w-full btn">
-    <div class="rounded-xl h-screen-sm w-full ceshi relative article " :style="{background:`url(${item?.img})`}">
-      <div class="text-white p-10 bottom-0 left-0 text-5xl absolute title">{{item?.title}}</div>
+    <div class="rounded-xl h-30 w-full ceshi relative article title-bg xl:h-screen-sm"
+      :style="{background:`url(${item?.img}) no-repeat center center`}">
+      <div class="text-white text-xl p-3 bottom-0 left-0 absolute title">{{item?.title}}</div>
     </div>
   </router-link>
   <div class="flex mt-3">
-    <div class="bg-[rgba(65,105,225,0.15)] rounded-3xl p-2 px-4 text-[#4169e1]">{{dateformate(item?.UpdatedAt)}}</div>
-    <div class="bg-[rgba(255,118,30,0.15)] rounded-3xl ml-3 p-2 px-4 text-[#ff761e]">{{item?.content.length||'0'}} 字
+    <div class="bg-[rgba(65,105,225,0.15)] rounded-3xl p-1 text-[#4169e1] xl:px-4 xl:hidden">
+      {{xsdateformate(item?.UpdatedAt)}}
     </div>
-    <div class="bg-[rgba(255,185,0,0.15)] rounded-3xl ml-3 p-2 px-4 text-[#ffb900]">大概
-      {{Math.ceil(item?.content.length/300)||'0'}} 分钟
+    <div class="bg-[rgba(65,105,225,0.15)] rounded-3xl p-2 px-4 text-[#4169e1] <xl:hidden">
+      {{dateformate(item?.UpdatedAt)}}
+    </div>
+    <div class="bg-[rgba(255,118,30,0.15)] rounded-3xl ml-3 p-1 text-[#ff761e] xl:p-2 xl:px-4">
+      {{item?.content?.length||'0'}} 字
+    </div>
+    <div class="bg-[rgba(255,185,0,0.15)] rounded-3xl ml-3 p-1 text-[#ffb900] xl:p-2 xl:px-4">大概
+      {{Math.ceil(item?.content?.length/300)||'0'}} 分钟
     </div>
     <!-- <div class="bg-[rgba(51,213,122,0.15)] rounded-3xl ml-3 p-2 px-4 text-[#33d57a]">置顶</div> -->
   </div>
@@ -46,6 +62,10 @@ defineProps({
 </template>
 
 <style type="scss">
+.title-bg {
+  background-size: cover !important;
+}
+
 .title {
   @apply rounded-b-xl w-full;
   background: -webkit-linear-gradient(bottom, gray, transparent)

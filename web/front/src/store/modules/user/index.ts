@@ -1,3 +1,4 @@
+import { get } from '@/utils/http/axios';
 import { defineStore } from 'pinia';
 import {
   login as userLogin,
@@ -43,6 +44,16 @@ export const useUserStore = defineStore('user', {
     // 重置用户信息
     resetInfo() {
       this.$reset();
+    },
+    async getInfo() {
+      let res = await get({
+        url: `profile/1`
+      })
+      return res
+    },
+    async updateInfo(){
+      let res = await this.getInfo()
+      this.setInfo(res.data)
     },
     // 获取用户信息
     async info() {

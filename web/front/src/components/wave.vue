@@ -174,7 +174,7 @@ export default {
 
     //监听鼠标移动事件
     function onPointerMove(event) {
-      console.log(event);
+      // console.log(event);
       if (event.isPrimary === false) return;
       mouseX = event.clientX - windowHalfX;
     }

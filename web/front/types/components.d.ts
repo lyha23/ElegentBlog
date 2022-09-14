@@ -8,12 +8,17 @@ export {}
 declare module '@vue/runtime-core' {
   export interface GlobalComponents {
     Cover: typeof import('./../src/components/cover.vue')['default']
+    ElButton: typeof import('element-plus/es')['ElButton']
     ElTag: typeof import('element-plus/es')['ElTag']
     ElTooltip: typeof import('element-plus/es')['ElTooltip']
+    HjDragabledrawer: typeof import('./../src/components/hj-dragabledrawer.vue')['default']
     LeftBar: typeof import('./../src/components/leftBar.vue')['default']
     MdEditor: typeof import('./../src/components/MdEditor.vue')['default']
+    Menu: typeof import('./../src/components/menu.vue')['default']
     RouterLink: typeof import('vue-router')['RouterLink']
     RouterView: typeof import('vue-router')['RouterView']
+    SideDrawer: typeof import('./../src/components/sideDrawer.vue')['default']
+    TheMenu: typeof import('./../src/components/theMenu.vue')['default']
     Timeline: typeof import('./../src/components/Timeline.vue')['default']
     Vis: typeof import('./../src/components/Vis.vue')['default']
     VueWxlogin: typeof import('./../src/components/wxLogin/vue-wxlogin.vue')['default']

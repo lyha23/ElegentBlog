@@ -20,7 +20,9 @@ onBeforeMount(async () => {
 
 <template>
   <cover :item="state.article"></cover>
-  <v-md-preview :text="state.article.content"></v-md-preview>
+  <div class="<xl:w-84">
+    <v-md-preview :text="state.article?.content"></v-md-preview>
+  </div>
   <div class="nexmoe-post-copyright">
     <strong>本文作者：</strong>{{userStore.name}}<br />
     <strong>本文链接：</strong><a :href="`http://www.qqoc.co/#${Route.fullPath}`" title="" target="_blank"
