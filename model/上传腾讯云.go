@@ -26,7 +26,7 @@ func Upload(_ multipart.File, file *multipart.FileHeader) (string, error) {
 	// 对象键（Key）是对象在存储桶中的唯一标识。
 	// 例如，在对象的访问域名 `examplebucket-1250000000.cos.COS_REGION.myqcloud.com/test/objectPut.go` 中，对象键为 test/objectPut.go
 	timestamp := time.Now().Unix()
-	name := fmt.Sprintf("myblog/%d%d/%d_%s", time.Now().Year(), time.Now().Month(), timestamp, file.Filename)
+	name := fmt.Sprintf("myblog/%d%d/%d_%s", time.Now().Year(), time.Now().Month(), timestamp, file.Filename[len(file.Filename)-7:])
 
 	fd, err := file.Open()
 	if err != nil {

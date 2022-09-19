@@ -191,9 +191,10 @@ enjoy~~~~
     - tinymce
     - moment
     - pinia
-- MySQL version:8.0.21
+- MySQL
 
 ## TODO
 - [ ] 微信小程序
 - [ ]  文章评论功能
 -[ ]   Docker支持
+- [ ] 前台和后台写到一个项目里
