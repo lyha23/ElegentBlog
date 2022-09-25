@@ -36,5 +36,7 @@ func RegisterBlogRouters(r *gin.Engine) {
 		router.GET("comment/info/:id", v1.GetComment)
 		router.GET("commentfront/:id", v1.GetCommentListFront)
 		router.GET("commentcount/:id", v1.GetCommentCount)
+
+		router.GET("checkImg", v1.Check)
 	}
 }

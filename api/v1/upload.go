@@ -3,6 +3,7 @@ package v1
 import (
 	"github.com/gin-gonic/gin"
 	"github.com/wejectchen/ginblog/model"
+	"io"
 	"net/http"
 )
 
@@ -18,4 +19,16 @@ func UpLoad(c *gin.Context) {
 		"url":  url,
 		"name": fileHeader.Filename,
 	})
+}
+
+func Check(c *gin.Context) {
+	url, err := model.Check()
+	resp, err := http.Get(url)
+	if err != nil {
+		c.AbortWithStatus(http.StatusInternalServerError)
+	}
+	defer resp.Body.Close()
+	//读取页面内容
+	respByte, err := io.ReadAll(resp.Body)
+	c.Writer.WriteString(string(respByte))
 }
