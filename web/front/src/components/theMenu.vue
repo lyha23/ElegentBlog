@@ -16,19 +16,19 @@ let type = ['success', 'info', 'warning', 'danger']
 <template>
   <router-link :to="`/`"
     class="rounded-xl flex m-1  mt-8 w-full py-2 text-[#9ca2a8] duration-300 justify-center hover:bg-gray-200 hover:shadow-xl"
-    :class="Route.fullPath==`/page?page=1`?'selected':''">
+    :class="Route.fullPath == `/page?page=1` ? 'selected' : ''">
     <div class="flex  w-20 justify-between items-center"><i style="font-size:22px"
         class="text-xl iconfont icon-Leftbar_index_unselected"></i>首页
     </div>
   </router-link>
   <router-link :to="`/tidy`"
     class="rounded-xl flex m-1 w-full py-2 text-[#9ca2a8] duration-300 justify-center hover:bg-gray-200 hover:shadow-xl"
-    :class="Route.name==`tidy`?'selected':''">
+    :class="Route.name == `tidy` ? 'selected' : ''">
     <div class="flex  w-20 justify-between items-center"><i style="font-size:22px"
         class="text-xl iconfont icon-Calander"></i>归档
     </div>
   </router-link>
-  <router-link :to="`about`" :class="Route.name==`about`?'selected':''"
+  <router-link :to="`about`" :class="Route.name == `about` ? 'selected' : ''"
     class="rounded-xl  flex  m-1 w-full py-2 text-[#9ca2a8] duration-300 justify-center hover:bg-gray-200 hover:shadow-xl">
     <div class="flex  w-20 justify-between items-center"><i style="font-size:22px"
         class="text-xl icon-Leftbar_mine_unselected iconfont"></i>关于
@@ -37,9 +37,9 @@ let type = ['success', 'info', 'warning', 'danger']
 
   <input class="rounded-xl  shadow-md mt-5 w-full p-4 dark:bg-dark-800" placeholder="搜全站！" />
   <div class=" rounded-xl flex flex-wrap shadow-md my-1 mt-5 w-full p-3">
-    <router-link :to="`/page?category=${item.id}&page=1`" v-for="(item,index) in categoryStore.list">
-      <el-tag :type="type[index%4]" class="my-1 mr-2" round>
-        {{item.name}}</el-tag>
+    <router-link :to="`/page?category=${item.id}&page=1`" v-for="(item, index) in categoryStore.list">
+      <el-tag :type="type[index % 4]" class="my-1 mr-2" round>
+        {{ item?.name }}</el-tag>
     </router-link>
   </div>
   <div class="rounded-xl flex shadow-md mt-5 w-full p-3 justify-evenly">

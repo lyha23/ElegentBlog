@@ -1,7 +1,6 @@
 <template>
   <a-layout class="container">
     <Nav></Nav>
-
     <a-layout>
       <a-layout-header class="headerBtn">
         <Header></Header>

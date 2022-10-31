@@ -9,11 +9,22 @@ routes.push({
   name:'index'
 })
 
+routes.push(
+  {
+    path: '/admin/login',
+    name: 'login',
+    meta: {
+      title: '请登录'
+    },
+  })
+
 //导入生成的路由数据
 const router = createRouter({
   history: createWebHashHistory(),
   routes,
 });
+
+console.log(router)
 
 router.beforeEach(async (_to, _from, next) => {
   NProgress.start();

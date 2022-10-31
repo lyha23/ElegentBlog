@@ -115,9 +115,7 @@ onBeforeMount(async () => {
       </div>
     </nav>
   </footer>
-
 </template>
-  
   
   
 <style lang="scss" scoped>
