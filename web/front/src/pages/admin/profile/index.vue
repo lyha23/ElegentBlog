@@ -1,76 +1,64 @@
 <template>
-  <a-card>
-    <a-form-model labelAlign="left" >
-      <div class="">
-      <a-form-model-item label="作者名称">
-        <a-input style="width: 300px" v-model="profileInfo.name"></a-input>
-      </a-form-model-item>
+  <el-card>
+    <el-form labelAlign="left">
 
-      <a-form-model-item label="个人简介">
-        <a-input type="textarea" v-model="profileInfo.desc"></a-input>
-      </a-form-model-item>
+      <el-form-item label="作者名称">
+        <el-input style="width: 300px" v-model="profileInfo.name"></el-input>
+      </el-form-item>
 
-      <a-form-model-item label="QQ号码">
-        <a-input style="width: 300px" v-model="profileInfo.qq_chat"></a-input>
-      </a-form-model-item>
+      <el-form-item label="个人简介">
+        <el-input type="textarea" v-model="profileInfo.desc" />
+      </el-form-item>
 
-      <a-form-model-item label="微信">
-        <a-input style="width: 300px" v-model="profileInfo.wechat"></a-input>
-      </a-form-model-item>
+      <el-form-item label="QQ号码">
+        <el-input style="width: 300px" v-model="profileInfo.qq_chat" />
+      </el-form-item>
 
-      <a-form-model-item label="微博">
-        <a-input style="width: 300px" v-model="profileInfo.weibo"></a-input>
-      </a-form-model-item>
+      <el-form-item label="微信">
+        <el-input style="width: 300px" v-model="profileInfo.wechat" />
+      </el-form-item>
 
-      <a-form-model-item label="B站地址">
-        <a-input style="width: 300px" v-model="profileInfo.bili"></a-input>
-      </a-form-model-item>
+      <el-form-item label="微博">
+        <el-input style="width: 300px" v-model="profileInfo.weibo" />
+      </el-form-item>
 
-        <a-form-model-item label="Github">
-          <a-input style="width: 300px" v-model="profileInfo.github"></a-input>
-        </a-form-model-item>
+      <el-form-item label="B站地址">
+        <el-input style="width: 300px" v-model="profileInfo.bili" />
+      </el-form-item>
 
-      <a-form-model-item label="Email">
-        <a-input style="width: 300px" v-model="profileInfo.email"></a-input>
-      </a-form-model-item>
-      </div>
+      <el-form-item label="Github">
+        <el-input style="width: 300px" v-model="profileInfo.github" />
+      </el-form-item>
 
-      <a-form-model-item label="头像">
-        <a-upload
-          listType="picture"
-          name="file"
-          :action="upUrl"
-          :headers="headers"
-          @change="avatarChange"
-        >
-          <a-button style="margin-right:10px">
-            <a-icon type="upload" />点击上传
-          </a-button>
+      <el-form-item label="Email">
+        <el-input style="width: 300px" v-model="profileInfo.email" />
+      </el-form-item>
+
+      <el-form-item label="头像">
+        <el-upload listType="picture" name="file" :action="upUrl" :headers="headers" @change="avatarChange">
+          <el-button style="margin-right:10px">
+            <el-icon type="upload" />点击上传
+          </el-button>
 
           <template v-if="profileInfo.avatar">
             <img :src="profileInfo.avatar" style="width: 120px; height: 100px" />
           </template>
-        </a-upload>
-      </a-form-model-item>
+        </el-upload>
+      </el-form-item>
 
-      <a-form-model-item label="个人简介">
-        <v-md-editor
-          v-model="profileInfo.aboutMe"
-          :disabled-menus="[]"
-          height="600px"
+      <el-form-item label="个人简介">
+        <v-md-editor v-model="profileInfo.aboutMe" :disabled-menus="[]" height="600px"
           @upload-image="handleUploadImage">
-
         </v-md-editor>
-      </a-form-model-item>
+      </el-form-item>
 
-      <a-form-model-item>
-        <a-button type="danger" style="margin-right: 15px" @click="updateProfile">更新</a-button>
-      </a-form-model-item>
-    </a-form-model>
-  </a-card>
+      <el-form-item>
+        <el-button type="danger" style="margin-right: 15px" @click="updateProfile">更新</el-button>
+      </el-form-item>
+    </el-form>
+  </el-card>
 </template>
-<script>
-import { Url } from '../../plugin/http'
+<script lang="ts">
 
 export default {
   data() {
@@ -88,7 +76,7 @@ export default {
         avatar: '',
         aboutMe: '',
       },
-      upUrl: Url + 'upload',
+      upUrl: this.$http.baseURL + 'upload',
       headers: {},
     }
   },
@@ -132,9 +120,9 @@ export default {
       let file = event.target.files[0]
       form.append('file', file);
       let config = {
-        headers: {'Content-Type': 'multipart/form-data'}
+        headers: { 'Content-Type': 'multipart/form-data' }
       }
-      let {data:res}=await this.$http.post('upload', form,config)
+      let { data: res } = await this.$http.post('upload', form, config)
       console.log(res)
       // 此处只做示例
       insertImage({

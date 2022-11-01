@@ -1,121 +1,71 @@
 <template>
-  <div>
-    <a-card>
-      <a-row :gutter="20">
-        <a-col :span="6">
-          <a-input-search
-            v-model="queryParam.username"
-            placeholder="输入用户名查找"
-            enter-button
-            allowClear
-            @search="searchUser"
-          />
-        </a-col>
-        <a-col :span="4">
-          <a-button type="primary" @click="addUserVisible = true">新增</a-button>
-        </a-col>
-      </a-row>
+  <el-card>
+    <el-row :gutter="20">
+      <el-col :span="6">
+        <el-input v-model="queryParam.username" placeholder="输入用户名查找" enter-button allowClear @search="searchUser" />
+      </el-col>
+      <el-col :span="4">
+        <el-button type="primary" @click="addUserVisible = true">新增</el-button>
+      </el-col>
+    </el-row>
 
-      <a-table
-        rowKey="ID"
-        :columns="columns"
-        :pagination="pagination"
-        :dataSource="userlist"
-        bordered
-        @change="handleTableChange"
-      >
-        <span slot="role" slot-scope="data">{{ data == 1 ? '管理员' : '订阅者' }}</span>
-        <template slot="action" slot-scope="data">
-          <div class="actionSlot">
-            <a-button
-              type="primary"
-              icon="edit"
-              style="margin-right: 15px"
-              @click="editUser(data.ID)"
-            >编辑</a-button>
-            <a-button
-              type="danger"
-              icon="delete"
-              style="margin-right: 15px"
-              @click="deleteUser(data.ID)"
-            >删除</a-button>
-            <a-button type="info" icon="info" @click="ChangePassword(data.ID)">修改密码</a-button>
-          </div>
-        </template>
-      </a-table>
-    </a-card>
+    <el-table rowKey="ID" :columns="columns" :pagination="pagination" :dataSource="userlist" bordered
+      @change="handleTableChange">
+      <span slot="role" slot-scope="data">{{ data == 1 ? '管理员' : '订阅者' }}</span>
+      <template slot="action" slot-scope="data">
+        <div class="actionSlot">
+          <a-button type="primary" icon="edit" style="margin-right: 15px" @click="editUser(data.ID)">编辑</a-button>
+          <a-button type="danger" icon="delete" style="margin-right: 15px" @click="deleteUser(data.ID)">删除</a-button>
+          <a-button type="info" icon="info" @click="ChangePassword(data.ID)">修改密码</a-button>
+        </div>
+      </template>
+    </el-table>
+  </el-card>
 
-    <!-- 新增用户区域 -->
-    <a-modal
-      closable
-      title="新增用户"
-      :visible="addUserVisible"
-      width="60%"
-      @ok="addUserOk"
-      @cancel="addUserCancel"
-      destroyOnClose
-    >
-      <a-form-model :model="newUser" :rules="addUserRules" ref="addUserRef">
-        <a-form-model-item label="用户名" prop="username">
-          <a-input v-model="newUser.username"></a-input>
-        </a-form-model-item>
-        <a-form-model-item has-feedback label="密码" prop="password">
-          <a-input-password v-model="newUser.password"></a-input-password>
-        </a-form-model-item>
-        <a-form-model-item has-feedback label="确认密码" prop="checkpass">
-          <a-input-password v-model="newUser.checkpass"></a-input-password>
-        </a-form-model-item>
-      </a-form-model>
-    </a-modal>
+  <!-- 新增用户区域 -->
+  <a-modal closable title="新增用户" :visible="addUserVisible" width="60%" @ok="addUserOk" @cancel="addUserCancel"
+    destroyOnClose>
+    <a-form-model :model="newUser" :rules="addUserRules" ref="addUserRef">
+      <a-form-model-item label="用户名" prop="username">
+        <a-input v-model="newUser.username"></a-input>
+      </a-form-model-item>
+      <a-form-model-item has-feedback label="密码" prop="password">
+        <a-input-password v-model="newUser.password"></a-input-password>
+      </a-form-model-item>
+      <a-form-model-item has-feedback label="确认密码" prop="checkpass">
+        <a-input-password v-model="newUser.checkpass"></a-input-password>
+      </a-form-model-item>
+    </a-form-model>
+  </a-modal>
 
-    <!-- 编辑用户区域 -->
-    <a-modal
-      closable
-      destroyOnClose
-      title="编辑用户"
-      :visible="editUserVisible"
-      width="60%"
-      @ok="editUserOk"
-      @cancel="editUserCancel"
-    >
-      <a-form-model :model="userInfo" :rules="userRules" ref="addUserRef">
-        <a-form-model-item label="用户名" prop="username">
-          <a-input v-model="userInfo.username"></a-input>
-        </a-form-model-item>
-        <a-form-model-item label="是否为管理员">
-          <a-switch
-            :checked="IsAdmin"
-            checked-children="是"
-            un-checked-children="否"
-            @change="adminChange"
-          />
-        </a-form-model-item>
-      </a-form-model>
-    </a-modal>
+  <!-- 编辑用户区域 -->
+  <a-modal closable destroyOnClose title="编辑用户" :visible="editUserVisible" width="60%" @ok="editUserOk"
+    @cancel="editUserCancel">
+    <a-form-model :model="userInfo" :rules="userRules" ref="addUserRef">
+      <a-form-model-item label="用户名" prop="username">
+        <a-input v-model="userInfo.username"></a-input>
+      </a-form-model-item>
+      <a-form-model-item label="是否为管理员">
+        <a-switch :checked="IsAdmin" checked-children="是" un-checked-children="否" @change="adminChange" />
+      </a-form-model-item>
+    </a-form-model>
+  </a-modal>
 
-    <!-- 修改密码 -->
-    <a-modal
-      closable
-      title="修改密码"
-      :visible="changePasswordVisible"
-      width="60%"
-      @ok="changePasswordOk"
-      @cancel="changePasswordCancel"
-      destroyOnClose
-    >
-      <a-form-model :model="changePassword" :rules="changePasswordRules" ref="changePasswordRef">
-        <a-form-model-item has-feedback label="密码" prop="password">
-          <a-input-password v-model="changePassword.password"></a-input-password>
-        </a-form-model-item>
-        <a-form-model-item has-feedback label="确认密码" prop="checkpass">
-          <a-input-password v-model="changePassword.checkpass"></a-input-password>
-        </a-form-model-item>
-      </a-form-model>
-    </a-modal>
-  </div>
+  <!-- 修改密码 -->
+  <a-modal closable title="修改密码" :visible="changePasswordVisible" width="60%" @ok="changePasswordOk"
+    @cancel="changePasswordCancel" destroyOnClose>
+    <a-form-model :model="changePassword" :rules="changePasswordRules" ref="changePasswordRef">
+      <a-form-model-item has-feedback label="密码" prop="password">
+        <a-input-password v-model="changePassword.password"></a-input-password>
+      </a-form-model-item>
+      <a-form-model-item has-feedback label="确认密码" prop="checkpass">
+        <a-input-password v-model="changePassword.checkpass"></a-input-password>
+      </a-form-model-item>
+    </a-form-model>
+  </a-modal>
 </template>
 
-<script>
+<script lang="ts">
 import day from 'dayjs'
 
 const columns = [

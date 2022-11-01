@@ -1,71 +1,61 @@
 <template>
-  <div>
-    <a-card>
+  <div class="w-full">
+    <el-card>
       <h3>{{ id ? '编辑文章' : '新增文章' }}</h3>
-
-      <a-form-model :model="artInfo" ref="artInfoRef" :rules="artInfoRules"
-        :hideRequiredMark="true">
-        <a-row :gutter="24">
-          <a-col :span="16">
-            <a-form-model-item label="文章标题" prop="title">
-              <a-input style="width: 300px" v-model="artInfo.title"></a-input>
-            </a-form-model-item>
-            <a-form-model-item label="文章描述" prop="desc">
-              <a-input type="textarea" v-model="artInfo.desc"></a-input>
-            </a-form-model-item>
-          </a-col>
-          <a-col :span="8">
-            <a-form-model-item label="文章分类" prop="cid">
-              <a-select style="width: 200px" v-model="artInfo.cid" placeholder="请选择分类"
-                @change="cateChange">
-                <a-select-option v-for="item in Catelist" :key="item.id" :value="item.id">
+      <el-form :model="artInfo" ref="artInfoRef" :rules="artInfoRules" :hideRequiredMark="true">
+        <el-row :gutter="24">
+          <el-col :span="16">
+            <el-form-item label="文章标题" prop="title">
+              <el-input style="width: 300px" v-model="artInfo.title" />
+            </el-form-item>
+            <el-form-item label="文章描述" prop="desc">
+              <el-input type="textarea" v-model="artInfo.desc" />
+            </el-form-item>
+          </el-col>
+          <el-col :span="8">
+            <el-form-item label="文章分类" prop="cid">
+              <el-select style="width: 200px" v-model="artInfo.cid" placeholder="请选择分类" @change="cateChange">
+                <el-option v-for="item in Catelist" :key="item.id" :value="item.id">
                   {{
                       item.name
                   }}
-                </a-select-option>
-              </a-select>
-            </a-form-model-item>
+                </el-option>
+              </el-select>
+            </el-form-item>
 
-            <a-form-model-item label="文章缩略图" prop="img">
-              <a-upload listType="picture" name="file" :action="upUrl" :headers="headers"
-                @change="upChange">
-                <a-button>
-                  <a-icon type="upload" />点击上传
-                </a-button>
+            <el-form-item label="文章缩略图" prop="img">
+              <el-upload listType="picture" name="file" :action="upUrl" :headers="headers" @change="upChange">
+                <el-button>
+                  <el-icon type="upload" />点击上传
+                </el-button>
 
                 <template v-if="id">
                   <img :src="artInfo.img" style="width: 120px; height: 100px; margin-left: 15px" />
                 </template>
-              </a-upload>
-            </a-form-model-item>
-          </a-col>
-        </a-row>
-        <a-form-model-item label="文章内容" prop="content">
-          <v-md-editor
-            v-model="artInfo.content"
-            :disabled-menus="[]"
-            height="600px"
-            @upload-image="handleUploadImage">
+              </el-upload>
+            </el-form-item>
+          </el-col>
+        </el-row>
+        <el-form-item label="文章内容" prop="content">
+          <v-md-editor v-model="artInfo.content" :disabled-menus="[]" height="600px" @upload-image="handleUploadImage">
 
           </v-md-editor>
-        </a-form-model-item>
+        </el-form-item>
 
-        <a-form-model-item>
-          <a-button type="danger" style="margin-right: 15px" @click="artOk(artInfo.id)">
+        <el-form-item>
+          <el-button type="danger" style="margin-right: 15px" @click="artOk(artInfo.id)">
             {{
                 artInfo.id ? '更新' : '提交'
             }}
-          </a-button>
-          <a-button type="primary" @click="addCancel">取消</a-button>
-        </a-form-model-item>
-      </a-form-model>
-    </a-card>
+          </el-button>
+          <el-button type="primary" @click="addCancel">取消</el-button>
+        </el-form-item>
+      </el-form>
+    </el-card>
   </div>
 </template>
 
-<script>
-import { Url } from '../../plugin/http'
-import Editor from '../editor/index'
+<script lang="ts" >
 import VMdEditor from "@kangc/v-md-editor";
 export default {
   components: { VMdEditor },
@@ -81,7 +71,7 @@ export default {
         img: '',
       },
       Catelist: [],
-      upUrl: Url + 'upload',
+      upUrl: this.$http.baseURL + 'upload',
       headers: {},
       fileList: [],
       artInfoRules: {
@@ -124,7 +114,7 @@ export default {
     async getCateList() {
       const { data: res } = await this.$http.get('category')
       if (res.code !== 200) return this.$message.error(res.message)
-          this.Catelist = res.list
+      this.Catelist = res.list
     },
     // 选择分类
     cateChange(value) {
@@ -138,9 +128,9 @@ export default {
       let file = event.target.files[0]
       form.append('file', file);
       let config = {
-        headers: {'Content-Type': 'multipart/form-data'}
+        headers: { 'Content-Type': 'multipart/form-data' }
       }
-      let {data:res}=await this.$http.post('upload', form,config)
+      let { data: res } = await this.$http.post('upload', form, config)
       console.log(res)
       // 此处只做示例
       insertImage({
@@ -151,37 +141,37 @@ export default {
       });
     },
     // 上传图片
-    upChange(info) {
-      if (info.file.status !== 'uploading') {
-      }
-      if (info.file.status === 'done') {
-        this.$message.success(`图片上传成功`)
-        this.artInfo.img = info.file.response.url
-      } else if (info.file.status === 'error') {
-        this.$message.error(`图片上传失败`)
-      }
-    },
+    // upChange(info) {
+    //   if (info.file.status !== 'uploading') {
+    //   }
+    //   if (info.file.status === 'done') {
+    //     this.$message.success(`图片上传成功`)
+    //     this.artInfo.img = info.file.response.url
+    //   } else if (info.file.status === 'error') {
+    //     this.$message.error(`图片上传失败`)
+    //   }
+    // },
     // 提交&&更新文章
-    artOk(id) {
-      this.$refs.artInfoRef.validate(async (valid) => {
-        if (!valid) return this.$message.error('参数验证未通过，请按要求录入文章内容')
-        if (id === 0) {
-          const { data: res } = await this.$http.post('article/add', this.artInfo)
-          if (res.code !== 200) return this.$message.error(res.message)
-          this.$router.push('/artlist')
-          this.$message.success('添加文章成功')
-        } else {
-          const { data: res } = await this.$http.put(`article/${id}`, this.artInfo)
-          if (res.code !== 200) return this.$message.error(res.message)
-          this.$router.push('/artlist')
-          this.$message.success('更新文章成功')
-        }
-      })
-    },
+    // artOk(id) {
+    //   this.$refs.artInfoRef.validate(async (valid) => {
+    //     if (!valid) return this.$message.error('参数验证未通过，请按要求录入文章内容')
+    //     if (id === 0) {
+    //       const { data: res } = await this.$http.post('article/add', this.artInfo)
+    //       if (res.code !== 200) return this.$message.error(res.message)
+    //       this.$router.push('/artlist')
+    //       this.$message.success('添加文章成功')
+    //     } else {
+    //       const { data: res } = await this.$http.put(`article/${id}`, this.artInfo)
+    //       if (res.code !== 200) return this.$message.error(res.message)
+    //       this.$router.push('/artlist')
+    //       this.$message.success('更新文章成功')
+    //     }
+    //   })
+    // },
 
-    addCancel() {
-      this.$refs.artInfoRef.resetFields()
-    },
+    // addCancel() {
+    //   this.$refs.artInfoRef.resetFields()
+    // },
   },
 }
 </script>

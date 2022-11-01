@@ -1,43 +1,3 @@
-<template>
-  <div>
-    <el-card>
-      <a-row :gutter="20">
-        <a-col :span="6">
-          <a-input-search v-model="queryParam.title" placeholder="输入文章名查找" enter-button allowClear
-            @search="getArtList" />
-        </a-col>
-        <a-col :span="4">
-          <a-button type="primary" @click="$router.push('/addart')">新增</a-button>
-        </a-col>
-
-        <a-col :span="3">
-          <a-select placeholder="请选择分类" style="width: 200px" @change="CateChange">
-            <a-select-option v-for="item in Catelist" :key="item.id" :value="item.id">{{ item.name }}</a-select-option>
-          </a-select>
-        </a-col>
-        <a-col :span="1">
-          <a-button type="info" @click="getArtList()">显示全部</a-button>
-        </a-col>
-      </a-row>
-
-      <a-table rowKey="ID" :columns="columns" :pagination="pagination" :dataSource="Artlist" bordered
-        @change="handleTableChange">
-        <span class="ArtImg" slot="img" slot-scope="img">
-          <img :src="img" />
-        </span>
-        <template slot="action" slot-scope="data">
-          <div class="actionSlot">
-            <a-button size="small" type="primary" icon="edit" style="margin-right: 15px"
-              @click="$router.push(`/addart/${data.ID}`)">编辑</a-button>
-            <a-button size="small" type="danger" icon="delete" style="margin-right: 15px" @click="deleteArt(data.ID)">删除
-            </a-button>
-          </div>
-        </template>
-      </a-table>
-    </el-card>
-  </div>
-</template>
-
 <script lang="ts" >
 import day from 'dayjs'
 
@@ -196,6 +156,51 @@ export default {
   },
 }
 </script>
+
+<template>
+  <el-card>
+    <el-row :gutter="20">
+      <el-col :span="6">
+        <el-input v-model="queryParam.title" placeholder="输入文章名查找" enter-button allowClear @search="getArtList" />
+      </el-col>
+      <el-col :span="4">
+        <el-button type="primary" @click="$router.push('/addart')">新增</el-button>
+      </el-col>
+
+      <el-col :span="3">
+        <el-select placeholder="请选择分类" style="width: 200px" @change="CateChange">
+          <el-option v-for="item in Catelist" :key="item.id" :value="item.id">{{ item.name }}
+          </el-option>
+        </el-select>
+      </el-col>
+      <el-col :span="1">
+        <el-button type="info" @click="getArtList()">显示全部</el-button>
+      </el-col>
+    </el-row>
+
+    <el-table rowKey="ID" :data="Artlist" @change="handleTableChange">
+      <el-table-column prop="ID" label="编号" width="100" />
+      <el-table-column label="封面" width="180">
+        <template #default="scope">
+          <img class="h-10 w-10" :src="scope.row.img" />
+        </template>
+      </el-table-column>
+      <el-table-column prop="title" label="标题" width="180"></el-table-column>
+      <el-table-column label="操作" width="230">
+        <template #default="scope" class="flex justify-evenly">
+          <el-button size="small" type="primary" icon="edit" style="margin-right: 15px"
+            @click="$router.push(`/addart/${data.ID}`)">编辑</el-button>
+          <el-button size="small" type="danger" icon="delete" style="margin-right: 15px" @click="deleteArt(data.ID)">
+            删除
+          </el-button>
+        </template>
+      </el-table-column>
+    </el-table>
+  </el-card>
+
+</template>
+
+
 
 <style scoped>
 .actionSlot {

@@ -15,9 +15,12 @@ import * as ElementPlusIconsVue from '@element-plus/icons-vue';
 // 支持SVG
 import 'virtual:svg-icons-register';
 import plugins from '@/plugins'
-// import "vis/dist/vis.css";
+import axios from '@/plugins/http'
+
 
 const app = createApp(App);
+
+app.config.globalProperties.$http = axios;
 
 for (const [key, component] of Object.entries(ElementPlusIconsVue)) {
   app.component(key, component);

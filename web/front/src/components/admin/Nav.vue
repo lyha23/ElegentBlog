@@ -28,27 +28,27 @@
       </el-menu-item>
     </el-sub-menu>
 
-    <el-menu-item index="commentlist">
+    <el-menu-item index="admin/comment">
       <el-icon>
         <ChatLineRound />
       </el-icon>
       <span>评论管理</span>
     </el-menu-item>
-    <el-menu-item index="catelist">
+    <el-menu-item index="admin/category">
       <el-icon>
         <Files />
       </el-icon>
       <span>分类列表</span>
     </el-menu-item>
 
-    <el-menu-item index="userlist">
+    <el-menu-item index="admin/userlist">
       <el-icon>
         <User />
       </el-icon>
       <span>用户列表</span>
     </el-menu-item>
 
-    <el-menu-item index="profile">
+    <el-menu-item index="admin/profile">
       <el-icon>
         <Setting />
       </el-icon>

@@ -1,68 +1,61 @@
 <template>
-  <div>
-    <a-card>
-      <a-row :gutter="20">
-        <a-col :span="4">
-          <a-button type="primary" @click="addCateVisible = true">新增分类</a-button>
-        </a-col>
-      </a-row>
+  <el-card>
+    <el-row :gutter="20">
+      <el-col :span="4">
+        <el-button type="primary" @click="addCateVisible = true">新增分类</el-button>
+      </el-col>
+    </el-row>
 
-      <a-table
-        rowKey="id"
-        :columns="columns"
-        :pagination="pagination"
-        :dataSource="Catelist"
-        bordered
-        @change="handleTableChange"
-      >
-        <template slot="action" slot-scope="data">
-          <div class="actionSlot">
-            <a-button type="primary" icon="edit" style="margin-right: 15px" @click="editCate(data)">编辑</a-button>
-            <a-button type="danger" icon="delete" style="margin-right: 15px" @click="deleteCate(data)"
-              >删除</a-button
-            >
-          </div>
+    <el-table rowKey="id" :data="Catelist" @change="handleTableChange">
+      <el-table-column label="名称" prop="name" />
+
+      <el-table-column label="操作">
+        <template #default="scope">
+          <el-button type=" primary" icon="edit" style="margin-right: 15px" @click="editCate(data)">编辑</el-button>
+          <el-button type="danger" icon="delete" style="margin-right: 15px" @click="deleteCate(data)">删除</el-button>
         </template>
-      </a-table>
-    </a-card>
+      </el-table-column>
+    </el-table>
+  </el-card>
 
-    <!-- 新增分类区域 -->
-    <a-modal
-      closable
-      title="新增分类"
-      :visible="addCateVisible"
-      width="60%"
-      @ok="addCateOk"
-      @cancel="addCateCancel"
-      destroyOnClose
-    >
-      <a-form-model :model="newCate" :rules="addCateRules" ref="addCateRef">
-        <a-form-model-item label="分类名称" prop="name">
-          <a-input v-model="newCate.name"></a-input>
-        </a-form-model-item>
-      </a-form-model>
-    </a-modal>
+  <!-- 新增分类区域 -->
+  <el-dialog closable title="新增分类" v-model="addCateVisible" width="60%" @ok="addCateOk" @cancel="addCateCancel"
+    destroyOnClose>
+    <el-form :model="newCate" :rules="addCateRules" ref="addCateRef">
+      <el-form-item label="分类名称" prop="name">
+        <el-input v-model="newCate.name" />
+      </el-form-item>
+    </el-form>
+    <template #footer>
+      <div class="dialog-footer">
+        <el-button @click="addCateVisible = false">Cancel</el-button>
+        <el-button type="primary" @click="addCateOk">
+          OK
+        </el-button>
+      </div>
+    </template>
+  </el-dialog>
 
-    <!-- 编辑分类区域 -->
-    <a-modal
-      closable
-      destroyOnClose
-      title="编辑分类"
-      :visible="editCateVisible"
-      width="60%"
-      @ok="editCateOk"
-      @cancel="editCateCancel"
-    >
-      <a-form-model :model="CateInfo" :rules="CateRules" ref="addCateRef">
-        <a-form-model-item label="分类名称" prop="name">
-          <a-input v-model="CateInfo.name"></a-input>
-        </a-form-model-item>
-      </a-form-model>
-    </a-modal>
-  </div>
+  <!-- 编辑分类区域 -->
+  <el-dialog closable destroyOnClose title="编辑分类" v-model="editCateVisible" width="60%" @ok="editCateOk"
+    @cancel="editCateCancel">
+    <el-form :model="CateInfo" :rules="CateRules" ref="addCateRef">
+      <el-form-item label="分类名称" prop="name">
+        <el-input v-model="CateInfo.name" />
+      </el-form-item>
+    </el-form>
+    <template #footer>
+      <div class="dialog-footer">
+        <el-button @click="editCateVisible = false">Cancel</el-button>
+        <el-button type="primary" @click="editCateOk">
+          OK
+        </el-button>
+      </div>
+    </template>
+  </el-dialog>
 </template>
 
-<script>
+<script lang="ts">
 const columns = [
   {
     title: 'ID',
