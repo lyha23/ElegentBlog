@@ -10,9 +10,10 @@ import Admin from '@/router/admin.vue'
 const Route = useRoute()
 // console.log(Route)
 const isAdmin = computed(() => {
-  return true
-  // return Route.name?.toString().startsWith('admin')
+  // return true
+  return Route.name?.toString().startsWith('admin')
 })
+
 </script>
 
 <style lang="scss">
