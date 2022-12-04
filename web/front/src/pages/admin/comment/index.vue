@@ -1,43 +1,27 @@
 <template>
   <div>
-    <a-card>
-      <a-table
-        rowKey="ID"
-        :columns="columns"
-        :pagination="pagination"
-        :dataSource="commentList"
-        bordered
-        @change="handleTableChange"
-      >
+    <el-card>
+      <el-table rowKey="ID" :columns="columns" :pagination="pagination" :dataSource="commentList" bordered
+        @change="handleTableChange">
         <span slot="status" slot-scope="data">{{ data == 1 ? '审核通过' : '未审核' }}</span>
         <template slot="action" slot-scope="data">
           <div class="actionSlot">
-            <a-button
-              type="primary"
-              icon="edit"
-              style="margin-right: 15px"
-              @click="commentCheck(data.ID)"
-            >通过审核</a-button>
-            <a-button
-              type="primary"
-              icon="info"
-              style="margin-right: 15px"
-              @click="commentUncheck(data.ID)"
-            >撤下评论</a-button>
-            <a-button
-              type="danger"
-              icon="delete"
-              style="margin-right: 15px"
-              @click="deleteComment(data.ID)"
-            >删除</a-button>
+            <el-button type="primary" icon="edit" style="margin-right: 15px"
+              @click="commentCheck(data.ID)">通过审核</el-button>
+            <el-button type="primary" icon="info" style="margin-right: 15px"
+              @click="commentUncheck(data.ID)">撤下评论</el-button>
+            <el-button type="danger" icon="delete" style="margin-right: 15px"
+              @click="deleteComment(data.ID)">删除</el-button>
           </div>
         </template>
-      </a-table>
-    </a-card>
+      </el-table>
+    </el-card>
   </div>
 </template>
-<script>
+<script lang="ts">
 import day from 'dayjs'
+import user from 'mock/user'
+import { useUserStore } from '/@/store'
 const columns = [
   {
     title: 'ID',
@@ -112,10 +96,12 @@ export default {
         pagesize: 10,
         pagenum: 1,
       },
+      userStore: {},
     }
   },
-  created() {
+  onMounted() {
     this.getCommentList()
+    this.userStore = useUserStore()
   },
   methods: {
     // 获取评论列表
@@ -125,6 +111,10 @@ export default {
           pagesize: this.queryParam.pagesize,
           pagenum: this.queryParam.pagenum,
         },
+        headers: {
+          token: this.userStore.token,
+        }
+
       })
 
       if (res.status !== 200) {

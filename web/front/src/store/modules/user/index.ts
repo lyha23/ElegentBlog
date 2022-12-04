@@ -23,16 +23,17 @@ export const useUserStore = defineStore('user', {
     github:undefined,
     img:undefined,
     aboutMe:undefined,
+    token:undefined
   }),
   getters: {
     userProfile(state) {
       return { ...state };
     },
     isLogin() {
-      if (typeof this.ID === 'undefined') {
+      if (typeof this.token === 'undefined') {
       return false
       } else {
-          return true
+      return true
       }
     }
   },

@@ -15,7 +15,7 @@ import * as ElementPlusIconsVue from '@element-plus/icons-vue';
 // 支持SVG
 import 'virtual:svg-icons-register';
 import plugins from '@/plugins'
-import axios from '@/plugins/http'
+import axios from '@/utils/http/axios'
 
 
 const app = createApp(App);

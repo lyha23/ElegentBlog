@@ -44,6 +44,7 @@ declare module '@vue/runtime-core' {
     Header: typeof import('./../src/components/admin/Header.vue')['default']
     Index: typeof import('./../src/components/admin/Index.vue')['default']
     LeftBar: typeof import('./../src/components/leftBar.vue')['default']
+    Login: typeof import('./../src/components/login.vue')['default']
     MdEditor: typeof import('./../src/components/MdEditor.vue')['default']
     Nav: typeof import('./../src/components/admin/Nav.vue')['default']
     Profile: typeof import('./../src/components/user/Profile.vue')['default']

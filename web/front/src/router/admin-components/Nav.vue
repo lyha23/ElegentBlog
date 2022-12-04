@@ -1,4 +1,5 @@
 <template >
+  <!-- 左侧导航栏 -->
   <el-menu mode="vertical" @select="goToPage">
     <el-menu-item index="index">
       <el-icon>
@@ -6,7 +7,6 @@
       </el-icon>
       <span>仪表盘</span>
     </el-menu-item>
-
     <el-sub-menu>
       <template #title>
         <el-icon>
@@ -64,12 +64,6 @@ const goToPage = (key: string, keyPath: string[]) => {
   console.log(key, keyPath)
   router.push('/' + key).catch((err) => err)
 }
-
-
-// let goToPage = (item) => {
-//   router.push('/' + item.key).catch((err) => err)
-// }
-
 </script>
 
 <style scoped>

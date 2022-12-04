@@ -16,19 +16,14 @@ type ArticleType = {
 }
 
 type ArticleListType = Array<ArticleType>
-
 let timelineDesc: Ref<ArticleListType> = ref([])
-
-
-
+  
 onBeforeMount(async () => {
   let res = await get({ url: '/article/timeline' })
   console.log(res)
   timelineDesc.value = res.list
 
 })
-
-
 </script>
 
 <template>

@@ -1,7 +1,6 @@
 <template>
-  <div class="h-max">
+  <div class="h-full">
     <Admin v-if="isAdmin" />
-
     <Front v-else />
   </div>
 </template>
@@ -17,5 +16,8 @@ const isAdmin = computed(() => {
 </script>
 
 <style lang="scss">
-
+body,
+html {
+  height: 100%
+}
 </style>

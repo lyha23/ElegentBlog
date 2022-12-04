@@ -2,6 +2,7 @@ import axios, { AxiosInstance, AxiosRequestConfig, AxiosResponse } from 'axios';
 import { showMessage } from './status';
 import { IResponse } from './type';
 
+
 // 如果请求话费了超过 `timeout` 的时间，请求将被中断
 axios.defaults.timeout = 5000;
 // 表示跨域请求时是否需要使用凭证
@@ -17,12 +18,6 @@ const axiosInstance: AxiosInstance = axios.create({
 // axios实例拦截响应
 axiosInstance.interceptors.response.use(
   (response: AxiosResponse) => {
-    // if (response.headers.authorization) {
-    //   localStorage.setItem('app_token', response.headers.authorization)
-    // } else if (response.data && response.data.token) {
-    //   localStorage.setItem('app_token', response.data.token)
-    // }
-
     if (response.status === 200) {
       return response;
     }
@@ -41,15 +36,6 @@ axiosInstance.interceptors.response.use(
   },
 );
 
-// axios实例拦截请求
-axiosInstance.interceptors.request.use(
-  (config: AxiosRequestConfig) => {
-    return config;
-  },
-  (error: any) => {
-    return Promise.reject(error);
-  },
-);
 
 const request = <T = any>(config: AxiosRequestConfig): Promise<T> => {
   const conf = config;
@@ -65,23 +51,6 @@ const request = <T = any>(config: AxiosRequestConfig): Promise<T> => {
   });
 };
 
-// const request = <T = any>(config: AxiosRequestConfig, options?: AxiosRequestConfig): Promise<T> => {
-//   if (typeof config === 'string') {
-//     if (!options) {
-//       return axiosInstance.request<T, T>({
-//         url: config,
-//       });
-//       // throw new Error('请配置正确的请求参数');
-//     } else {
-//       return axiosInstance.request<T, T>({
-//         url: config,
-//         ...options,
-//       });
-//     }
-//   } else {
-//     return axiosInstance.request<T, T>(config);
-//   }
-// };
 
 export function get<T = any>(config: AxiosRequestConfig): Promise<T> {
   return request({ ...config, method: 'GET' });
@@ -91,7 +60,7 @@ export function post<T = any>(config: AxiosRequestConfig): Promise<T> {
   return request({ ...config, method: 'POST' });
 }
 
-export default request;
+export default axiosInstance;
 export type { AxiosInstance, AxiosResponse };
 /**
  * @description: 用户登录案例
