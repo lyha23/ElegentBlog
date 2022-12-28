@@ -1,7 +1,7 @@
-<template >
+<template>
   <!-- 左侧导航栏 -->
   <el-menu mode="vertical" @select="goToPage">
-    <el-menu-item index="index">
+    <el-menu-item index="admin/login">
       <el-icon>
         <House />
       </el-icon>
@@ -58,22 +58,22 @@
 </template>
 
 <script setup lang="ts">
-import router from '/@/router';
+  import router from '/@/router';
 
-const goToPage = (key: string, keyPath: string[]) => {
-  console.log(key, keyPath)
-  router.push('/' + key).catch((err) => err)
-}
+  const goToPage = (key: string, keyPath: string[]) => {
+    console.log(key, keyPath);
+    router.push('/' + key).catch((err) => err);
+  };
 </script>
 
 <style scoped>
-.log {
-  height: 32px;
-  margin: 16px;
-  background-color: #fff;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  font-size: 17px;
-}
+  .log {
+    height: 32px;
+    margin: 16px;
+    background-color: #fff;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 17px;
+  }
 </style>

@@ -5,13 +5,13 @@
 </template>
 
 <style scoped>
-.footer {
-  background-color: #eee;
-  text-align: center;
-}
+  .footer {
+    background-color: #eee;
+    text-align: center;
+  }
 
-.footer span {
-  height: 100%;
-  font-size: 18px;
-}
+  .footer span {
+    height: 100%;
+    font-size: 18px;
+  }
 </style>

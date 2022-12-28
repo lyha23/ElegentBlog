@@ -5,7 +5,7 @@ import {
   logout as userLogout,
   getUserProfile,
 } from '/@/api/user/index';
-import { setToken, clearToken } from '/@/utils/auth';
+import { setToken, clearToken, clearAll } from '/@/utils/auth';
 
 export const useUserStore = defineStore('user', {
   state: () => ({
@@ -53,13 +53,17 @@ export const useUserStore = defineStore('user', {
       return res
     },
     async updateInfo(){
-      let res = await this.getInfo()
-      this.setInfo(res.data)
+      if(!this.ID){
+        let res = await this.getInfo()
+        this.setInfo(res.data)
+      }
     },
     // 获取用户信息
     async info() {
+      if(!this.ID){
       const result = await getUserProfile();
       this.setInfo(result);
+      }
     },
     // 异步登录并存储token
     async login(loginForm) {
@@ -70,13 +74,19 @@ export const useUserStore = defineStore('user', {
       }
       return result;
     },
+    async setToken(token: string) {
+      if(token){
+      this.setInfo({'token':token})
+      }
+    },
     // Logout
     async logout() {
       await userLogout();
       this.resetInfo();
       clearToken();
+      clearAll();
       // 路由表重置
-      // location.reload();
+      location.reload();
     },
   },
 });

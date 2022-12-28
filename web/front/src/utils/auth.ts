@@ -1,4 +1,4 @@
-const TokenKey = 'Token';
+const TokenKey = 'piniaUser';
 const TokenPrefix = 'Bearer ';
 const isLogin = () => {
   return !!localStorage.getItem(TokenKey);

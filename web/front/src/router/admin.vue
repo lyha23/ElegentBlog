@@ -3,7 +3,7 @@
     <Login />
   </div>
   <div v-else class="flex flex-col h-full items-center">
-    <div class='w-screen-lg'>
+    <div class="w-full">
       <Header></Header>
       <div class="flex h-full">
         <div class="w-50">
@@ -19,27 +19,26 @@
 </template>
 
 <script setup lang="ts">
-import Login from '@/components/login.vue'
-import Nav from './admin-components/Nav.vue'
-import Footer from './admin-components/Footer.vue'
-import Header from './admin-components/Header.vue'
-import router from '@/router'
-import { useUserStore } from '@/store'
-const Route = useRoute()
-const userStore = useUserStore()
-console.log(Route.fullPath)
-const islogin = computed(() => {
-  return userStore.isLogin ? true : false
-})
+  import Login from './admin-components/login.vue';
+  import Nav from './admin-components/Nav.vue';
+  import Footer from './admin-components/Footer.vue';
+  import Header from './admin-components/Header.vue';
+  import router from '@/router';
+  import { useUserStore } from '@/store';
+  const Route = useRoute();
+  const userStore = useUserStore();
+  console.log(Route.fullPath);
+  const islogin = computed(() => {
+    return userStore.isLogin ? true : false;
+  });
 
-onBeforeMount(async () => {
-  await userStore.updateInfo()
-})
+  onBeforeMount(async () => {
+    await userStore.updateInfo();
+  });
 </script>
 
 <style lang="scss" scoped>
-.el-container {
-  height: 100%;
-}
+  .el-container {
+    height: 100%;
+  }
 </style>
-

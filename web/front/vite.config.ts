@@ -63,7 +63,7 @@ export default ({ command, mode }: ConfigEnv): UserConfig => {
       },
       rollupOptions: {
         // 确保外部化处理那些你不想打包进库的依赖
-        external: [],
+        external: ["@tinymce/tinymce-vue"],
         // https://rollupjs.org/guide/en/#big-list-of-options
       },
       watch: {

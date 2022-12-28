@@ -89,7 +89,9 @@ cd yourPath/Vue-Gin-Blog
 go mod tidy
 ```
 
-4. 初始化项目配置config.ini
+4.config 文件夹下
+复制文件 config.example.ini
+初始化项目配置config.ini
 
 ```ini
 ./config/config.ini
@@ -106,14 +108,6 @@ DbPort = 3306 # 数据库端口
 DbUser = ginblog # 数据库用户名
 DbPassWord = admin123 # 数据库用户密码
 DbName = ginblog # 数据库名
-
-[qiniu]
-# 七牛储存信息
-Zone = 1 # 1:华东;2:华北;3:华南,不填默认华北。境外服务器特殊使用环境自行配置
-AccessKey =
-SecretKey =
-Bucket =
-QiniuSever =
 
 [tencentyun]
 # 腾讯云COS储存信息
@@ -184,7 +178,6 @@ enjoy~~~~
     - vue3
     - vue cli
     - vue router
-    - ant design vue
     - element UI 
     - vuetify
     - axios
@@ -195,6 +188,6 @@ enjoy~~~~
 
 ## TODO
 - [ ] 微信小程序
-- [ ]  文章评论功能
--[ ]   Docker支持
+- [ ] 文章评论功能
+- [ ] Docker支持
 - [ ] 前台和后台写到一个项目里

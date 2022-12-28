@@ -73,7 +73,7 @@ func (j *JWT) ParserToken(tokenString string) (*MyClaims, error) {
 func JwtToken() gin.HandlerFunc {
 	return func(c *gin.Context) {
 		var code int
-		tokenHeader := c.Request.Header.Get("Authorization")
+		tokenHeader := c.Request.Header.Get("token")
 		if tokenHeader == "" {
 			code = errmsg.ERROR_TOKEN_EXIST
 			c.JSON(http.StatusOK, gin.H{
